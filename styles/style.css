@@ -33,21 +33,23 @@ a {
 }
 
 #table {
-  /* border-collapse: collapse; */
+  border-collapse: collapse;
   width: 100%;
-  border: 1px solid black;
-  border-radius: 6px;
+  /* border: 5px solid black; */
+  border-radius: 30px;
+  border-style: hidden; /* hide standard table (collapsed) border */
+  box-shadow: 0 0 0 1px #666; /* this draws the table border  */
 }
-td,
-th {
+
+td {
   border: 1px solid #999;
   padding: 0.5rem;
   text-align: left;
-  border: 1px solid green;
+  border: 5px solid green;
 }
 
 tr {
-  border: 1px dotted red;
+  border: 5px dotted red;
 }
 
 p {
@@ -90,13 +92,13 @@ footer {
   border: 1px solid black;
   border-radius: 6px;
 }
-.new-table td {
+.new-table-td {
   border: 1px solid #999;
   padding: 0.5rem;
   text-align: left;
   border: 1px solid green;
 }
 
-.new-table tr {
+.new-table-tr {
   border: 1px dotted red;
 }

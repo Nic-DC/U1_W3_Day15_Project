@@ -41,6 +41,20 @@ buttonHidesTable.addEventListener("click", hideTable);
 
 // 45) Delete the last letter from the heading each time the user clicks on it
 
+// const buttonChangeHeading = document.createElement("button");
+// buttonChangeHeading.innerText = "Change Heading";
+// document.body.insertBefore(buttonChangeHeading, table);
+// buttonChangeHeading.classList.add("btn");
+
+// const removeLastChar = function (str) {
+//   for (let i = 0; i < str.length; i++) {
+//     let newStr = str.slice(0, -1);
+//     return newStr;
+//   }
+// };
+// console.log(removeLastChar("Different Heading"));
+// buttonChangeHeading.addEventListener("click", changeHeading);
+// heading.addEventListener("click", removeLastChar);
 // 46) Change the background color of a <td> if the user clicks on it
 const allTds = document.querySelectorAll("td");
 // const changeTdBackground = function (event) {
@@ -93,9 +107,6 @@ const buttonCreateNewTable = document.createElement("button");
 buttonCreateNewTable.innerText = "Create new table";
 buttonCreateNewTable.classList.add("btn");
 
-function insertAfter(newNode, referenceNode) {
-  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
 insertAfter(buttonCreateNewTable, buttonRandomDeleteTd);
 
 const addNewTable = function () {
@@ -121,8 +132,17 @@ buttonCreateNewTable.addEventListener("click", addNewTable);
 const buttonRemoveNewTable = document.createElement("button");
 buttonRemoveNewTable.innerText = "Remove new table";
 buttonRemoveNewTable.classList.add("btn");
-function insertAfter(newNode, referenceNode) {
-  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
+
 insertAfter(buttonRemoveNewTable, buttonCreateNewTable);
-// const removeNewTable =
+
+const removeNewLastTable = function () {
+  const allNewTables = document.querySelectorAll(".new-table");
+  console.log({ allNewTables });
+  for (let i = 0; i < allNewTables.length; i++) {
+    if (i === allNewTables.length - 1) {
+      allNewTables[i].remove();
+    }
+  }
+};
+
+buttonRemoveNewTable.addEventListener("click", removeNewLastTable);
