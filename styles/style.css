@@ -59,3 +59,44 @@ footer {
   justify-content: center;
   align-items: center;
 }
+
+/* buttons */
+.btn {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  margin: 1.5rem;
+  min-width: 100px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #fd310f;
+  border-radius: 3px;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease-in-out;
+}
+.btn:hover {
+  background-color: #fe712a;
+}
+
+.pink-border {
+  border: 5px solid pink;
+}
+
+.new-table {
+  /* border-collapse: collapse; */
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+.new-table td {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  text-align: left;
+  border: 1px solid green;
+}
+
+.new-table tr {
+  border: 1px dotted red;
+}

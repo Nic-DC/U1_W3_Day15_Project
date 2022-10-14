@@ -10,15 +10,35 @@ for (let td of tds) {
 }
 
 // 34) Write a function to change the heading of the page
+// +
+// 45) Delete the last letter from the heading each time the user clicks on it
+const table = document.querySelector("table");
 const heading = document.querySelector("h1");
+const buttonChangeHeading = document.createElement("button");
+buttonChangeHeading.innerText = "Change Heading";
+document.body.insertBefore(buttonChangeHeading, table);
+buttonChangeHeading.classList.add("btn");
+
+const removeLastChar = function (str) {
+  //   let newStr = ``;
+  for (let i = 0; i < str.length; i++) {
+    let newStr = str.slice(0, -1);
+    return newStr;
+  }
+};
+console.log(removeLastChar("Different Heading"));
+// heading.addEventListener("click", removeLastChar);
+
 const changeHeading = function () {
   heading.innerText = "Different Heading";
+  let string = heading.innerText;
   heading.style.color = "purple";
+  removeLastChar(string);
 };
-heading.addEventListener("click", changeHeading);
+buttonChangeHeading.addEventListener("click", changeHeading);
 
 // 35) Write a function to add an extra row to the table
-const table = document.querySelector("table");
+
 const addExtraRow = function () {
   const row = document.createElement("tr");
 

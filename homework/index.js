@@ -170,3 +170,22 @@ console.log(
     [71, 80, 100, 40, 50, 79, 87, 17, 68, 20]
   )
 );
+
+console.log(
+  "------------------REMOVE LAST CHARACTER FROM STRING-------------------"
+);
+const randomN = function (nr) {
+  const random = Math.floor(Math.random() * (nr + 1));
+  return random;
+};
+let all = [1, 2, 3];
+const deleteRando = function () {
+  let random = randomN(all.length);
+  for (let i = 0; i < all.length; i++) {
+    if (i === random) {
+      all.splice(i, 1);
+    }
+  }
+  return all;
+};
+console.log(deleteRando());
