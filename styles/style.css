@@ -102,3 +102,7 @@ footer {
 .new-table-tr {
   border: 1px dotted red;
 }
+
+.green-background {
+  background-color: green;
+}

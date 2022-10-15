@@ -40,7 +40,6 @@ buttonHidesTable.addEventListener("click", hideTable);
 // TO CREATE ANOTHER ROW WITH NUMERIC CONTENT JUST FOR THIS CHALLENGE AND CALCULATE SUM
 
 // 45) Delete the last letter from the heading each time the user clicks on it
-
 const buttonChangeHeading = document.createElement("button");
 buttonChangeHeading.innerText = "Change Heading";
 document.body.insertBefore(buttonChangeHeading, tableExtra);
@@ -57,14 +56,14 @@ buttonChangeHeading.addEventListener("click", removeLastChar);
 
 // 46) Change the background color of a <td> if the user clicks on it
 const allTds = document.querySelectorAll("td");
-// const changeTdBackground = function (event) {
-//   for (let i = 0; i < allTds.length; i++) {
-//   if (allTds[i].currentTarget) {
-//     allTds[i].style.backgroundColor = "yellow";
-//   }
-//   event.currentTarget.style.backgroundColor = "yellow";
-// };
-// };
+const changeTdBackground = function () {
+  for (let i = 0; i < allTds.length; i++) {
+    allTds[i].addEventListener("click", function () {
+      allTds[i].classList.add("green-background");
+    });
+  }
+};
+changeTdBackground();
 
 // 47) Add a delete button at the bottom of the table, when clicked it should delete a random <td>
 const buttonRandomDeleteTd = document.createElement("button");
