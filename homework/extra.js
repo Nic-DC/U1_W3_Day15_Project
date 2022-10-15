@@ -41,29 +41,29 @@ buttonHidesTable.addEventListener("click", hideTable);
 
 // 45) Delete the last letter from the heading each time the user clicks on it
 
-// const buttonChangeHeading = document.createElement("button");
-// buttonChangeHeading.innerText = "Change Heading";
-// document.body.insertBefore(buttonChangeHeading, table);
-// buttonChangeHeading.classList.add("btn");
+const buttonChangeHeading = document.createElement("button");
+buttonChangeHeading.innerText = "Change Heading";
+document.body.insertBefore(buttonChangeHeading, tableExtra);
+buttonChangeHeading.classList.add("btn");
 
-// const removeLastChar = function (str) {
-//   for (let i = 0; i < str.length; i++) {
-//     let newStr = str.slice(0, -1);
-//     return newStr;
-//   }
-// };
-// console.log(removeLastChar("Different Heading"));
-// buttonChangeHeading.addEventListener("click", changeHeading);
-// heading.addEventListener("click", removeLastChar);
+const removeLastChar = function () {
+  let string = heading.innerText;
+  let newStr = "";
+  newStr = string.slice(0, -1);
+  heading.innerText = newStr;
+  return heading.innerText;
+};
+buttonChangeHeading.addEventListener("click", removeLastChar);
+
 // 46) Change the background color of a <td> if the user clicks on it
 const allTds = document.querySelectorAll("td");
 // const changeTdBackground = function (event) {
 //   for (let i = 0; i < allTds.length; i++) {
-//     // if (allTds[i].currentTarget) {
-//     //   allTds[i].style.backgroundColor = "yellow";
-//     // }
-//     event.currentTarget.style.backgroundColor = "yellow";
+//   if (allTds[i].currentTarget) {
+//     allTds[i].style.backgroundColor = "yellow";
 //   }
+//   event.currentTarget.style.backgroundColor = "yellow";
+// };
 // };
 
 // 47) Add a delete button at the bottom of the table, when clicked it should delete a random <td>

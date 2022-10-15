@@ -13,6 +13,7 @@ const questionsAndAnswersArray = [];
 for (let i = 0; i < quizzes.length; i++) {
   let arr = [];
   arr.push(quizzes[i].question);
+  arr.push(quizzes[i].incorrect_answers);
   arr.push(quizzes[i].correct_answer);
   questionsAndAnswersArray.push(arr);
 }
@@ -33,12 +34,53 @@ let questionNumber = 0;
 
 const container = document.querySelector(".container");
 const question = document.querySelector(".question");
+const wrongQuestion = document.querySelector(".wrongQuestion");
 const answer = document.querySelector(".answer");
 const info = document.querySelector(".info");
 const scoreboard = document.querySelector(".scoreboard");
 const reamainingQuestions = document.querySelector(".reamainingQuestions");
 const headerQ = document.querySelector(".headerQ");
+const headerPossibilities = document.querySelector(".headerPossibiities");
 const headerA = document.querySelector(".headerA");
+const buttonQ = document.querySelector(".buttonQ");
+
 // manipulating elements
 question.classList.add("q-style");
 answer.classList.add("a-style");
+
+const randomQuestion = function () {
+  let random = Math.floor(
+    Math.random() * (questionsAndAnswersArray.length - 2) + 1
+  );
+  return random;
+};
+console.log(randomQuestion());
+
+const drawQuestion = function () {
+  let randomQ = randomQuestion();
+  let correctAnswer = questionsAndAnswersArray[randomQ][2];
+  let wrongAnswers = questionsAndAnswersArray[randomQ][1];
+  let allQuestions = wrongAnswers;
+
+  console.log({ wrongAnswers });
+  console.log({ allQuestions });
+  console.log({ correctAnswer });
+
+  for (let i = 0; i < allQuestions.length; i++) {
+    if (!allQuestions.includes(correctAnswer)) {
+      allQuestions.push(correctAnswer);
+    }
+  }
+
+  console.log({ wrongAnswers });
+  console.log({ allQuestions });
+  console.log({ correctAnswer });
+
+  headerQ.innerText = questionsAndAnswersArray[randomQ][0];
+  for (let i = 0; i < allQuestions; i++) {
+    headerPossibilities.innerText = possible;
+  }
+};
+console.log(drawQuestion());
+
+//buttonQ.addEventListener("click", drawQuestion);
