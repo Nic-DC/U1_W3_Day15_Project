@@ -9,22 +9,32 @@
   </head>
   <body>
     <div class="container">
+      <!-- question container -->
       <div class="question">
-        Q:
-        <h2 class="headerQ"></h1>
-        <button class="buttonQ">New Question</button>
+        <h1 class="questionText">Main question</h1>
       </div>
-      <div class="wrongQuestion">
-        ?:
-        <h2 class="headerPossibilities"></h1>
+
+      <!-- answers container -->
+      <div class="answers">
+        <!-- <h3 class="answer1 answer hide">A1:</h3>
+        <h3 class="answer2 answer hide">A2:</h3>
+        <h3 class="answer3 answer hide">A3:</h3>
+        <h3 class="answer4 answer hide">A4:</h3> -->
       </div>
-      <div class="answer">
-        A:
-        <h2 class="headerA"></h1>
-      </div>
+
+      <!-- scoreboard -->
       <div class="info">
         <div class="scoreboard">Score</div>
         <div class="questions">Remaining Qs:</div>
+      </div>
+
+      <!-- next question -->
+      <!-- this button will only work [become active] only:
+           - when the user selects an answer and clicks the button BEFORE the time reaches 0
+          BUT
+           the question will change when the time reaches 0-->
+      <div class="nextQuestion">
+        <button class="nextButton">Next Question</button>
       </div>
     </div>
     <script src="./quizz.js"></script>

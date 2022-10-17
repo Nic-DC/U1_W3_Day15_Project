@@ -1,12 +1,6 @@
 /* ------ 
         The Data:
                  -----*/
-
-const text = JSON.parse(
-  '{"response_code":0,"results":[{"category":"Science: Computers","type":"multiple","difficulty":"easy","question":"According to the International System of Units, how many bytes are in a kilobyte of RAM?","correct_answer":"1000","incorrect_answers":["512","1024","500"]},{"category":"Science: Computers","type":"multiple","difficulty":"easy","question":"Which computer hardware device provides an interface for all other connected devices to communicate?","correct_answer":"Motherboard","incorrect_answers":["Central Processing Unit","Hard Disk Drive","Random Access Memory"]},{"category":"Science: Computers","type":"multiple","difficulty":"easy","question":"In the programming language Java, which of these keywords would you put on a variable to make sure it doesn&#039;t get modified?","correct_answer":"Final","incorrect_answers":["Static","Private","Public"]},{"category":"Science: Computers","type":"boolean","difficulty":"easy","question":"Pointers were not used in the original C programming language; they were added later on in C++.","correct_answer":"False","incorrect_answers":["True"]},{"category":"Science: Computers","type":"multiple","difficulty":"easy","question":"The series of the Intel HD graphics generation succeeding that of the 5000 and 6000 series (Broadwell) is called:","correct_answer":"HD Graphics 500","incorrect_answers":["HD Graphics 700 ","HD Graphics 600","HD Graphics 7000"]},{"category":"Science: Computers","type":"multiple","difficulty":"easy","question":"How many kilobytes in one gigabyte (in decimal)?","correct_answer":"1000000","incorrect_answers":["1024","1000","1048576"]},{"category":"Science: Computers","type":"boolean","difficulty":"easy","question":"In most programming languages, the operator ++ is equivalent to the statement &quot;+= 1&quot;.","correct_answer":"True","incorrect_answers":["False"]},{"category":"Science: Computers","type":"boolean","difficulty":"easy","question":"Time on Computers is measured via the EPOX System.","correct_answer":"False","incorrect_answers":["True"]},{"category":"Science: Computers","type":"multiple","difficulty":"easy","question":"Which programming language shares its name with an island in Indonesia?","correct_answer":"Java","incorrect_answers":["Python","C","Jakarta"]},{"category":"Science: Computers","type":"multiple","difficulty":"easy","question":"What does the computer software acronym JVM stand for?","correct_answer":"Java Virtual Machine","incorrect_answers":["Java Vendor Machine","Java Visual Machine","Just Virtual Machine"]}]}'
-);
-// console.log({ text });
-
 const questions = [
   {
     category: "Science: Computers",
@@ -102,97 +96,111 @@ const questions = [
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
 ];
-window.onload = function () {
-  // HINTS
-  // IF YOU ARE DISPLAYING ALL THE QUESTIONS AT ONCE:
-  // For each question, create a container for wrapping it; then create a radio button
-  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio
-  // with, as options, both the correct answer and the incorrect ones
-  // (you'll probably need to google how to get the value from a radio button in JS to evaluate the final score)
-  //
-  // IF YOU ARE DISPLAYING ONE QUESTION AT A TIME
-  // Display the first question with the text and the radio buttons
-  // when the user selects an answer, pick the next question from the array and replace the old one with it
-  // saving the user's choice in a variable
-};
-// How to calculate the result? You can do it in 2 ways:
-// If you are presenting all the questions together, just take all the radio buttons and check if the selected answer === correct_answer
-// If you are presenting one question at a time, just add one point or not to the user score if the selected answer === correct_answer
 
-const quizzes = text.results;
-// console.log({ quizzes });
-const questionsAndAnswersArray = [];
-for (let i = 0; i < quizzes.length; i++) {
-  let arr = [];
-  arr.push(quizzes[i].question);
-  arr.push(quizzes[i].incorrect_answers);
-  arr.push(quizzes[i].correct_answer);
-  questionsAndAnswersArray.push(arr);
-}
-console.log({ questionsAndAnswersArray });
-
-/* ------ 
-        Foundation:
-                 -----*/
-// Keep a global variable score for the user score
-// Keep a variable questionNumber for the question the user is answering
-// When questionNumber is bigger then the available questions, present the score
-// Start working with the questions saved in a variable (or you can use AJAX for fetching external questions if you already know how to do it!)
-// Start with the easier version and THEN implement the EXTRAs
-// Please debug everything / try it on the console to be sure of what to expect from your code
-
-let userScore = 0;
-let questionNumber = 0;
-
+// we select the elements we ll need
 const container = document.querySelector(".container");
 const question = document.querySelector(".question");
-const wrongQuestion = document.querySelector(".wrongQuestion");
-const answer = document.querySelector(".answer");
+
+const answers = document.querySelector(".answers");
+
+const questionText = document.querySelector(".questionText");
+
 const info = document.querySelector(".info");
 const scoreboard = document.querySelector(".scoreboard");
 const reamainingQuestions = document.querySelector(".reamainingQuestions");
-const headerQ = document.querySelector(".headerQ");
-const headerPossibilities = document.querySelector(".headerPossibiities");
-const headerA = document.querySelector(".headerA");
-const buttonQ = document.querySelector(".buttonQ");
 
-// manipulating elements
-question.classList.add("q-style");
-answer.classList.add("a-style");
+const nextQuestion = document.querySelector(".nextQuestion");
+const nextButton = document.querySelector(".nextButton");
 
-const randomQuestion = function () {
-  let random = Math.floor(
-    Math.random() * (questionsAndAnswersArray.length - 2) + 1
-  );
+// global variables
+let userScore = 0;
+let questionsLeft = 0;
+let chosenAnswers = [];
+
+// we create an array of arrays with the question and the answers [correct and incorrect]
+let allQsAndAnswers = [];
+const getAllAnswers = function (arr) {
+  for (let i = 0; i < questions.length; i++) {
+    let question = questions[i].question;
+    let correctAnswer = questions[i].correct_answer;
+    let incorrectAnswersArr = questions[i].incorrect_answers;
+    let answers = [];
+    answers.push(question, correctAnswer);
+
+    for (let incorrectAnswer of incorrectAnswersArr) {
+      answers.push(incorrectAnswer);
+    }
+    allQsAndAnswers.push(answers);
+
+    // If we want to create an array of arrays with correct answer ans the incorrect answers
+    // let correctAnswerArr = [];
+    // let answers = [];
+    // correctAnswerArr.push(questions[i].correct_answer);
+    // answers.push(correctAnswerArr, questions[i].incorrect_answers);
+    // allAnswers.push(answers);
+  }
+  console.log(allQsAndAnswers.length);
+  console.log({ allQsAndAnswers });
+  return allQsAndAnswers;
+};
+console.log(getAllAnswers(questions));
+
+// we create a function that will act as random index generator for rendering the questions
+const newRandomQuestion = function () {
+  let random = Math.floor(Math.random() * (allQsAndAnswers.length - 1)); // we need indexes from 0 to 9
   return random;
 };
-console.log(randomQuestion());
+console.log(newRandomQuestion());
 
-const drawQuestion = function () {
-  let randomQ = randomQuestion();
-  let correctAnswer = questionsAndAnswersArray[randomQ][2];
-  let wrongAnswers = questionsAndAnswersArray[randomQ][1];
-  let allQuestions = wrongAnswers;
+// we create the function that, when the button is clicked, the question with the possible answers [including the correct one] appears
+// and, when an answer is clicked, the useScore global variable increases by 1 [only after the click for the moment]
+const showQuestion = function () {
+  answers.innerHTML = "";
+  const random = newRandomQuestion();
+  const randomArrayOfQsAndAs = allQsAndAnswers[random];
 
-  console.log({ wrongAnswers });
-  console.log({ allQuestions });
-  console.log({ correctAnswer });
+  let questionShow = randomArrayOfQsAndAs[0];
+  let correctAnswer = randomArrayOfQsAndAs[1];
+  let incorrectAnswers = randomArrayOfQsAndAs.slice(2);
 
-  for (let i = 0; i < allQuestions.length; i++) {
-    if (!allQuestions.includes(correctAnswer)) {
-      allQuestions.push(correctAnswer);
-    }
+  questionText.innerText = questionShow;
+
+  for (let i = 1; i < randomArrayOfQsAndAs.length; i++) {
+    const answer = document.createElement("h3");
+    answer.classList.add("answer");
+    answer.innerText = randomArrayOfQsAndAs[i];
+    answer.addEventListener("click", () => {
+      if (randomArrayOfQsAndAs[i] === correctAnswer) {
+        userScore++;
+      }
+    });
+
+    answers.appendChild(answer);
   }
 
-  console.log({ wrongAnswers });
-  console.log({ allQuestions });
-  console.log({ correctAnswer });
-
-  headerQ.innerText = questionsAndAnswersArray[randomQ][0];
-  for (let i = 0; i < allQuestions; i++) {
-    headerPossibilities.innerText = possible;
-  }
+  console.log({ userScore });
 };
-console.log(drawQuestion());
+// showQuestion();
 
-//buttonQ.addEventListener("click", drawQuestion);
+nextButton.addEventListener("click", showQuestion);
+
+// [allRawData [0 [question], [correctAnswer], [wrongAnswers] ], [1 [question], [correctAnswer], [wrongAnswers] ], ...]
+// we create an array of arrays with only the question, wrong answers, correct answer
+// let allRawData = [];
+// const getRelevantData = function (arr) {
+//   for (let i = 0; i < questions.length; i++) {
+//     let questionArr = [];
+//     let correctAnswerArr = [];
+//     let rawData = [];
+
+//     questionArr.push(questions[i].question);
+//     correctAnswerArr.push(questions[i].correct_answer);
+
+//     rawData.push(questionArr, correctAnswerArr, questions[i].incorrect_answers);
+//     allRawData.push(rawData);
+//   }
+//   console.log(allRawData.length);
+//   return allRawData;
+// };
+// getRelevantData(questions);
+// console.log(getRelevantData(questions));
